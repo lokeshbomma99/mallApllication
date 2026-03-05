@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    @apply bg-gray-50 text-gray-900;
+  }
+  :root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --accent: #f59e0b;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2.5 rounded-xl transition-all duration-200 shadow-sm hover:shadow-md active:scale-95;
+  }
+  .btn-secondary {
+    @apply bg-white hover:bg-gray-50 text-blue-600 font-semibold px-6 py-2.5 rounded-xl border border-blue-200 transition-all duration-200 hover:border-blue-400;
+  }
+  .btn-outline {
+    @apply border border-gray-200 hover:border-blue-400 text-gray-700 hover:text-blue-600 font-medium px-4 py-2 rounded-lg transition-all duration-200;
+  }
+  .card {
+    @apply bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden;
+  }
+  .input {
+    @apply w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all;
+  }
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+  .sidebar-link {
+    @apply flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-all font-medium text-sm;
+  }
+  .sidebar-link.active {
+    @apply bg-blue-600 text-white hover:bg-blue-700 hover:text-white;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { @apply bg-gray-100; }
+::-webkit-scrollbar-thumb { @apply bg-gray-300 rounded-full; }
+::-webkit-scrollbar-thumb:hover { @apply bg-blue-400; }
+
+/* Animations */
+.animate-fade-in { animation: fadeIn 0.4s ease-in-out; }
+.animate-slide-up { animation: slideUp 0.4s ease-out; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Flash sale timer */
+.countdown-box {
+  @apply bg-red-600 text-white font-bold text-sm rounded-lg px-2 py-1 min-w-[2rem] text-center;
+}
+
+/* Product card hover */
+.product-card:hover .product-actions { opacity: 1; transform: translateY(0); }
+.product-actions { @apply opacity-0 translate-y-2 transition-all duration-200; }
