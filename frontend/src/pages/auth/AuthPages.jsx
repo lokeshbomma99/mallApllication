@@ -10,19 +10,31 @@ export function LoginPage() {
   const [form, setForm] = useState({ email: '', password: '' });
   const [showPw, setShowPw] = useState(false);
 
- const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault();
-  
+
+  if (!form.email || !form.password) {
+    toast.error("Email and password required");
+    return;
+  }
+
   const res = await login(form.email, form.password);
-  
+
   if (res.success) {
-    toast.success('Welcome back!');
-    if (res.role === 'admin') navigate('/admin');
-    else if (res.role === 'shopowner') navigate('/shop-owner');
-    else navigate('/');
+    toast.success("Welcome back!");
+
+    setTimeout(() => {
+      if (res.role === "admin") navigate("/admin");
+      else if (res.role === "shopowner") navigate("/shop-owner");
+      else navigate("/");
+    }, 1000); // toast dikhne ke liye 1 sec
   } else {
-    toast.error(res.message || 'Invalid email or password');
-    setForm({ ...form, password: '' }); // sirf password clear karo, email nahi
+    toast.error(res.message || "Invalid email or password");
+
+    setForm({
+      ...form,
+      password: "", // sirf password blank
+    });
   }
 };
 
