@@ -11,21 +11,30 @@ dotenv.config();
 const app = express();
 const server = http.createServer(app);
 
-// ✅ CORS — allow all origins
+// ✅ CORS fix — works with withCredentials: true
 app.use(cors({
-  origin: '*',
+  origin: (origin, callback) => {
+    callback(null, true); // allow all origins properly
+  },
+  credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
-app.options('*', cors());
+app.options('*', cors({
+  origin: (origin, callback) => callback(null, true),
+  credentials: true,
+}));
 
 const io = new Server(server, {
   cors: {
-    origin: '*',
+    origin: (origin, callback) => callback(null, true),
+    credentials: true,
     methods: ['GET', 'POST'],
   },
   transports: ['websocket', 'polling'],
 });
+
+// Middleware
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
@@ -50,24 +59,19 @@ app.use('/api/admin',         require('./routes/adminRoutes'));
 // Health check
 app.get('/api/health', (req, res) => res.json({ status: 'OK', message: 'SuperMall API Running' }));
 
-// Socket.IO — real-time chat & notifications
+// Socket.IO
 io.on('connection', (socket) => {
   console.log('🟢 Connected:', socket.id);
-
   socket.on('join_room', (roomId) => socket.join(roomId));
-
   socket.on('send_message', (data) => {
     io.to(data.roomId).emit('receive_message', data);
   });
-
   socket.on('order_update', (data) => {
     io.to(data.userId).emit('order_notification', data);
   });
-
   socket.on('disconnect', () => console.log('🔴 Disconnected:', socket.id));
 });
 
-// Export io for use in controllers
 global.io = io;
 
 mongoose
