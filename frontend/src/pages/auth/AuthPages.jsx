@@ -22,7 +22,15 @@ const handleSubmit = async (e) => {
     else if (res.role === "shopowner") navigate("/shop-owner");
     else navigate("/");
   } else {
-    alert(res.message || "Invalid email or password");
+    if (res.message.toLowerCase().includes("email")) {
+      alert("Incorrect email");
+    } 
+    else if (res.message.toLowerCase().includes("password")) {
+      alert("Incorrect password");
+    } 
+    else {
+      alert("Incorrect email or password");
+    }
   }
 };
 
