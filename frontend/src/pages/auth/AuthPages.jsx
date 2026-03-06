@@ -16,15 +16,13 @@ const handleSubmit = async (e) => {
   const res = await login(form.email, form.password);
 
   if (res.success) {
-    toast.success("Welcome back!", { duration: 2000 });
+    alert("Welcome back!");
 
     if (res.role === "admin") navigate("/admin");
     else if (res.role === "shopowner") navigate("/shop-owner");
     else navigate("/");
   } else {
-    toast.error(res.message || "Invalid email or password", {
-      duration: 2000
-    });
+    alert(res.message || "Invalid email or password");
   }
 };
 
