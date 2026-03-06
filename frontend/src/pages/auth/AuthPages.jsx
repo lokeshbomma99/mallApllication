@@ -13,27 +13,17 @@ export function LoginPage() {
 const handleSubmit = async (e) => {
   e.preventDefault();
 
-  if (!form.email || !form.password) {
-    toast.error("Email and password required");
-    return;
-  }
-
   const res = await login(form.email, form.password);
 
   if (res.success) {
-    toast.success("Welcome back!");
+    toast.success("Welcome back!", { duration: 2000 });
 
-    setTimeout(() => {
-      if (res.role === "admin") navigate("/admin");
-      else if (res.role === "shopowner") navigate("/shop-owner");
-      else navigate("/");
-    }, 1000); // toast dikhne ke liye 1 sec
+    if (res.role === "admin") navigate("/admin");
+    else if (res.role === "shopowner") navigate("/shop-owner");
+    else navigate("/");
   } else {
-    toast.error(res.message || "Invalid email or password");
-
-    setForm({
-      ...form,
-      password: "", // sirf password blank
+    toast.error(res.message || "Invalid email or password", {
+      duration: 2000
     });
   }
 };
