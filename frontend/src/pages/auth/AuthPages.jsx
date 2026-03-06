@@ -22,18 +22,9 @@ const handleSubmit = async (e) => {
     else if (res.role === "shopowner") navigate("/shop-owner");
     else navigate("/");
   } else {
-    if (res.message.toLowerCase().includes("email")) {
-      alert("Incorrect email");
-    } 
-    else if (res.message.toLowerCase().includes("password")) {
-      alert("Incorrect password");
-    } 
-    else {
-      alert("Incorrect email or password");
-    }
+    alert(res.message || "Invalid email or password");
   }
 };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white flex items-center justify-center p-4">
       <div className="w-full max-w-md">
