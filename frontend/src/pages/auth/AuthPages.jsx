@@ -10,16 +10,21 @@ export function LoginPage() {
   const [form, setForm] = useState({ email: '', password: '' });
   const [showPw, setShowPw] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const res = await login(form.email, form.password);
-    if (res.success) {
-      toast.success('Welcome back!');
-      if (res.role === 'admin') navigate('/admin');
-      else if (res.role === 'shopowner') navigate('/shop-owner');
-      else navigate('/');
-    } else toast.error(res.message);
-  };
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  
+  const res = await login(form.email, form.password);
+  
+  if (res.success) {
+    toast.success('Welcome back!');
+    if (res.role === 'admin') navigate('/admin');
+    else if (res.role === 'shopowner') navigate('/shop-owner');
+    else navigate('/');
+  } else {
+    toast.error(res.message || 'Invalid email or password');
+    setForm({ ...form, password: '' }); // sirf password clear karo, email nahi
+  }
+};
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white flex items-center justify-center p-4">
