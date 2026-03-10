@@ -34,7 +34,7 @@ export default function AdminLayout() {
               <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
                 <ShoppingBag size={16} className="text-white" />
               </div>
-              <span className="font-bold text-blue-700">SuperMall</span>
+              <span className="font-bold text-blue-700">MallVerse</span>
             </Link>
           )}
           <button onClick={() => setCollapsed(!collapsed)} className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-500 ml-auto">
