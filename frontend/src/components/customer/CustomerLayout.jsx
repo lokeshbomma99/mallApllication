@@ -74,7 +74,7 @@ export default function CustomerLayout() {
               <div className="w-9 h-9 bg-blue-600 rounded-xl flex items-center justify-center">
                 <ShoppingBag size={20} className="text-white" />
               </div>
-              <span className="font-bold text-xl text-blue-700 hidden sm:block">SuperMall</span>
+              <span className="font-bold text-xl text-blue-700 hidden sm:block">MallVerse</span>
             </Link>
 
             {/* Search */}
