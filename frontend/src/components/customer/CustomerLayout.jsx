@@ -235,7 +235,7 @@ export default function CustomerLayout() {
               <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
                 <ShoppingBag size={16} className="text-white" />
               </div>
-              <span className="font-bold text-lg">SuperMall</span>
+              <span className="font-bold text-lg">MallVerse</span>
             </div>
             <p className="text-blue-200 text-sm">Your ultimate shopping destination with thousands of stores and millions of products.</p>
           </div>
