@@ -33,7 +33,7 @@ const handleSubmit = async (e) => {
             <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center">
               <ShoppingBag size={22} className="text-white" />
             </div>
-            <span className="font-bold text-2xl text-blue-700">SuperMall</span>
+            <span className="font-bold text-2xl text-blue-700">MallVerse</span>
           </Link>
           <h1 className="text-2xl font-bold text-gray-900">Welcome back</h1>
           <p className="text-gray-500 mt-1">Sign in to your account</p>
@@ -99,10 +99,10 @@ export function RegisterPage() {
             <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center">
               <ShoppingBag size={22} className="text-white" />
             </div>
-            <span className="font-bold text-2xl text-blue-700">SuperMall</span>
+            <span className="font-bold text-2xl text-blue-700">MallVerse</span>
           </Link>
           <h1 className="text-2xl font-bold text-gray-900">Create an account</h1>
-          <p className="text-gray-500 mt-1">Join SuperMall today</p>
+          <p className="text-gray-500 mt-1">Join MallVerse today</p>
         </div>
 
         <div className="card p-8 animate-slide-up">
