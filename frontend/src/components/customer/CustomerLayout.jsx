@@ -5,7 +5,8 @@ import { useAuth } from '../../context/AuthContext';
 import { useCart } from '../../context/CartContext';
 import {
   ShoppingBag, Heart, Search, User, Menu, X, ChevronDown,
-  Bell, LogOut, Settings, Package, Home, Grid3X3, Zap, Globe
+  Bell, LogOut, Settings, Package, Home, Grid3X3, Zap, Globe,
+  GitCompare
 } from 'lucide-react';
 import api from '../../utils/api';
 
@@ -22,6 +23,9 @@ export default function CustomerLayout() {
   const [notifications, setNotifications] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [scrolled, setScrolled] = useState(false);
+  const [compareCount, setCompareCount] = useState(
+    () => JSON.parse(localStorage.getItem('compareList') || '[]').length
+  );
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -34,6 +38,15 @@ export default function CustomerLayout() {
       api.get('/notifications').then(r => setNotifications(r.data)).catch(() => {});
     }
   }, [user]);
+
+  // Sync compareCount when localStorage changes (e.g. from ProductDetailPage)
+  useEffect(() => {
+    const syncCount = () => {
+      setCompareCount(JSON.parse(localStorage.getItem('compareList') || '[]').length);
+    };
+    window.addEventListener('storage', syncCount);
+    return () => window.removeEventListener('storage', syncCount);
+  }, []);
 
   const unreadCount = notifications.filter(n => !n.read).length;
 
@@ -74,7 +87,7 @@ export default function CustomerLayout() {
               <div className="w-9 h-9 bg-blue-600 rounded-xl flex items-center justify-center">
                 <ShoppingBag size={20} className="text-white" />
               </div>
-              <span className="font-bold text-xl text-blue-700 hidden sm:block">MallVerse</span>
+              <span className="font-bold text-xl text-blue-700 hidden sm:block">SuperMall</span>
             </Link>
 
             {/* Search */}
@@ -122,6 +135,18 @@ export default function CustomerLayout() {
               {user?.role === 'customer' && (
                 <Link to="/wishlist" className="p-2 text-gray-500 hover:text-red-500 hover:bg-gray-50 rounded-lg transition-colors">
                   <Heart size={20} />
+                </Link>
+              )}
+
+              {/* Compare */}
+              {user?.role === 'customer' && (
+                <Link to="/compare" title="Compare products" className="relative p-2 text-gray-500 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors">
+                  <GitCompare size={20} />
+                  {compareCount > 0 && (
+                    <span className="absolute top-1 right-1 w-4 h-4 bg-blue-600 text-white text-xs rounded-full flex items-center justify-center">
+                      {compareCount}
+                    </span>
+                  )}
                 </Link>
               )}
 
@@ -182,6 +207,7 @@ export default function CustomerLayout() {
                         <Link to="/profile" className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-colors" onClick={() => setProfileOpen(false)}><User size={15} /> Profile</Link>
                         <Link to="/orders" className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-colors" onClick={() => setProfileOpen(false)}><Package size={15} /> My Orders</Link>
                         <Link to="/wishlist" className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-colors" onClick={() => setProfileOpen(false)}><Heart size={15} /> Wishlist</Link>
+                        <Link to="/compare" className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-colors" onClick={() => setProfileOpen(false)}><GitCompare size={15} /> Compare</Link>
                       </>}
                       {user.role === 'shopowner' && <Link to="/shop-owner" className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-colors" onClick={() => setProfileOpen(false)}><Grid3X3 size={15} /> My Shop</Link>}
                       {user.role === 'admin' && <Link to="/admin" className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-colors" onClick={() => setProfileOpen(false)}><Settings size={15} /> Admin Panel</Link>}
@@ -215,7 +241,11 @@ export default function CustomerLayout() {
         {/* Mobile nav */}
         {mobileOpen && (
           <div className="md:hidden border-t border-gray-100 px-4 py-3 space-y-1 bg-white animate-slide-up">
-            {[{ to: '/', label: t('home') }, { to: '/shop', label: t('shop') }].map(l => (
+            {[
+              { to: '/', label: t('home') },
+              { to: '/shop', label: t('shop') },
+              { to: '/compare', label: 'Compare' },
+            ].map(l => (
               <Link key={l.to} to={l.to} onClick={() => setMobileOpen(false)} className="block px-3 py-2 text-sm rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-700 font-medium">{l.label}</Link>
             ))}
           </div>
@@ -235,7 +265,7 @@ export default function CustomerLayout() {
               <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
                 <ShoppingBag size={16} className="text-white" />
               </div>
-              <span className="font-bold text-lg">MallVerse</span>
+              <span className="font-bold text-lg">SuperMall</span>
             </div>
             <p className="text-blue-200 text-sm">Your ultimate shopping destination with thousands of stores and millions of products.</p>
           </div>
