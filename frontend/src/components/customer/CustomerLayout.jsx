@@ -87,7 +87,7 @@ export default function CustomerLayout() {
               <div className="w-9 h-9 bg-blue-600 rounded-xl flex items-center justify-center">
                 <ShoppingBag size={20} className="text-white" />
               </div>
-              <span className="font-bold text-xl text-blue-700 hidden sm:block">SuperMall</span>
+              <span className="font-bold text-xl text-blue-700 hidden sm:block">MallVerse</span>
             </Link>
 
             {/* Search */}
@@ -265,7 +265,7 @@ export default function CustomerLayout() {
               <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
                 <ShoppingBag size={16} className="text-white" />
               </div>
-              <span className="font-bold text-lg">SuperMall</span>
+              <span className="font-bold text-lg">MallVerse</span>
             </div>
             <p className="text-blue-200 text-sm">Your ultimate shopping destination with thousands of stores and millions of products.</p>
           </div>
@@ -283,7 +283,7 @@ export default function CustomerLayout() {
           ))}
         </div>
         <div className="border-t border-blue-800 px-4 sm:px-6 py-4 text-center text-blue-300 text-xs">
-          © 2024 SuperMall. All rights reserved. | Built with ❤️ using MERN Stack
+          © 2024 MallVerse. All rights reserved. | Built with ❤️ using MERN Stack
         </div>
       </footer>
     </div>
