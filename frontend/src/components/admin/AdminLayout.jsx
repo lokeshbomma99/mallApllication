@@ -12,7 +12,7 @@ const navItems = [
   { to: '/admin/shops', label: 'Shops', icon: Store },
   { to: '/admin/analytics', label: 'Analytics', icon: BarChart3 },
   { to: '/admin/categories', label: 'Categories', icon: Tag },
-  { to: '/admin/banners', label: 'Banners', icon: Image },
+  // { to: '/admin/banners', label: 'Banners', icon: Image },
 ];
 
 export default function AdminLayout() {
