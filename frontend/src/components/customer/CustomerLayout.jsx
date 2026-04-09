@@ -116,7 +116,7 @@ export default function CustomerLayout() {
             {/* Right actions */}
             <div className="flex items-center gap-2 ml-auto">
               {/* Language */}
-              <div className="relative">
+              {/* <div className="relative">
                 <button onClick={() => setLangOpen(!langOpen)} className="p-2 text-gray-500 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors">
                   <Globe size={20} />
                 </button>
@@ -129,7 +129,7 @@ export default function CustomerLayout() {
                     ))}
                   </div>
                 )}
-              </div>
+              </div> */}
 
               {/* Wishlist */}
               {user?.role === 'customer' && (
